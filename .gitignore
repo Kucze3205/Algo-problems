@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/Algo-problems/v17/Browse.VC.db
+/.vs/Algo-problems/v17
+/.vs/Algo-problems/FileContentIndex
+/.vs
