@@ -1,0 +1,8 @@
+#!/bin/bash
+
+for ((i = 0; ;i++)) ;
+do
+	echo $i
+	o=srednietesty/out/wyjscie$i.out
+	diff -b $o <(./zap < srednietesty/in/wejscie$i.in) > /dev/null || break;
+done

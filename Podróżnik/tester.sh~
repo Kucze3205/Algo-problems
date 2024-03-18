@@ -1,0 +1,11 @@
+#/!/bash
+for((i = 0; ; i++))
+	./gen < i > pod.in
+	./brut < pod.in > brut.out
+	./pod < pod.in > pod.out
+	if diff -d brut.out pod.out
+	then echo i" jest git"
+	else echo i "nie jest git"
+	fi
+done
+	

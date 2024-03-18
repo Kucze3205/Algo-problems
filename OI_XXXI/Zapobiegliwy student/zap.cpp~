@@ -1,0 +1,82 @@
+#include <bits/stdc++.h> // ocen/
+using namespace std;
+
+const int MAXN = 5e5 + 5;
+
+vector<pair<int, int>> vctr; // moment zakończenia, index
+pair<int, int> wykl[MAXN];
+vector<int> potencial;
+vector<pair<int, int>> wyn;
+
+void zap1(){
+
+}
+
+void zap2(){
+
+}
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+
+    int n;
+    cin >> n;
+
+    for(int i = 1; i <= n; i++){
+        cin >> wykl[i].first >> wykl[i].second;
+        vctr.push_back({wykl[i].second, i});
+    }
+    sort(vctr.begin(), vctr.end());
+
+    pair<int, int> old_pair = {0, 0};
+    int f_part, index;
+    int a, b;
+
+    for(auto w : vctr){
+        a = wykl[w.second].first;
+        b = w.first;
+        index = w.second;
+
+        if(a < old_pair.second) continue;
+        else{
+            potencial.push_back(index);
+            old_pair = {a, b};
+        }
+    }
+
+    old_pair = {0, 0};
+    bool zapas = false;
+
+    for(auto w : vctr){
+        a = wykl[w.second].first;
+        b = w.first;
+        index = w.second;
+
+        if(zapas){
+            if(a < old_pair.second) continue;
+            else{
+                wyn.push_back({f_part, index});
+                old_pair = {min(wykl[f_part].first, a), b};
+                zapas = false;
+            }
+        }else{
+            if(a < old_pair.second) continue;
+            else{
+                f_part = index;
+                zapas = true;
+            }
+        }
+    }
+
+    if(potencial.size() == wyn.size()){
+        cout << wyn.size() << "\n";
+        for(auto p : wyn) cout << p.first << " " << p.second << "\n";
+    }else{
+        cout << potencial.size() - 1 << "\n";
+        for(int i = 0; i < potencial.size() - 1; i++)
+            cout << potencial[i] << " " << potencial[potencial.size() - 1] << "\n";
+    }
+
+    return 0;
+}

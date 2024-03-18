@@ -1,0 +1,6 @@
+for((i = 0; ; i++))do
+	echo $i
+	echo $i > seed
+	./gen < seed > str.in
+	time ./str < str.in > time.out
+done

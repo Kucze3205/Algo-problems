@@ -1,0 +1,10 @@
+#!/bin/bash
+
+for((i = 0; ; i++))do
+	echo $i
+	echo $i > seed
+	./gen < seed > tel.in
+	./brut < tel.in > brut.out
+	./tel < tel.in > tel.out
+	diff -d brut.out tel.out || break;
+done

@@ -5,7 +5,7 @@ int n, r;
 int Prefsum[511][511];
 int W[255][255];
 
-int mmain()
+int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(0);

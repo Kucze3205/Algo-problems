@@ -1,0 +1,64 @@
+const int MAXN = 1 << 19;
+int N, K;
+int t[MAXN << 1]; //drzewo przedział-przedział --> dodaj wartość, odczytaj minimum
+int t2[MAXN << 1]; //ilośc wartości >= k
+bool sprawdzamy = false;
+
+void inicjuj(int n, int k, int *D)
+{
+    N = n, K = k;
+    for(int i = 0; i < n; ++i){
+        t[i + n] = D[i];
+    }
+
+}
+
+void podlej(int a, int b)
+{
+    int p = a - 1;
+	int k = b + 1;
+
+	while(p + 1 < k){
+        if(p % 2 == 0) t[p + 1]++;
+        if(k % 2 == 1) t[k - 1]++;
+
+        p = p / 2;
+        k = k / 2;
+    }
+}
+
+int dojrzale(int a, int b) // zczytanie wartości z przedziału a b
+{
+    if(!sprawdzamy){
+        for(int i = 0; i < N; i++){
+            int tree_ind = i + N;
+            int wysokosc = 0;
+
+            while(tree_ind != 0){
+                wysokosc += t[tree_ind];
+                tree_ind = tree_ind / 2;
+            }
+
+            tree_ind = i + N;
+            if(wysokosc >= K){
+                while(tree_ind != 0){
+                    t2[tree_ind]++;
+                    tree_ind = tree_ind / 2;
+                }
+            }
+        }
+        sprawdzamy = true;
+    }
+    int wyn = 0;
+
+    int p = a - 1;
+	int k = b + 1;
+
+	while(p + 1 < k){
+        if(p % 2 == 0) wyn += t2[p + 1];
+        if(k % 2 == 1) wyn += t2[k - 1];
+
+        p = p / 2;
+        k = k / 2;
+    }
+}
